@@ -15,7 +15,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import "./newton.css";
-import Plot from "react-plotly.js";
+import dynamic from "next/dynamic";
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
 type Iteration = {
   index: number;
@@ -63,7 +64,7 @@ const columns: readonly Column[] = [
   },
 ];
 
-export default function Newton({}: RootResult) {
+export default function Newton() {
   const [functionInput, setFunctionInput] = useState("");
   const [lowerBound, setLowerBound] = useState<number>();
   const [upperBound, setUpperBound] = useState<number>();
@@ -258,11 +259,5 @@ export default function Newton({}: RootResult) {
     </div>
   );
 }
-
-
-
-
-
-
 
 

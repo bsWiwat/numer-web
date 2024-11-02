@@ -1,15 +1,10 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import "./compositeSimpson.css";
 
-type Result = {
+type ResultData = {
   status: {
     statusCode: number;
     statusName: string;
@@ -22,7 +17,7 @@ type Result = {
   };
 };
 
-export default function ComSimpson({}: Result) {
+export default function ComSimpson() {
   const [functionInput, setFunctionInput] = useState("");
   const [xEnd, setXEnd] = useState<number>();
   const [xStart, setXStart] = useState<number>();
@@ -34,7 +29,7 @@ export default function ComSimpson({}: Result) {
       functionExpression: functionInput,
       xEnd: xEnd,
       xStart: xStart,
-      numberIntervals: numberIntervals
+      numberIntervals: numberIntervals,
     };
 
     try {
@@ -53,7 +48,7 @@ export default function ComSimpson({}: Result) {
         throw new Error("Network response was not ok");
       }
 
-      const data: Result = await response.json();
+      const data: ResultData = await response.json(); // Updated type name
       setResult(data.data.result);
       console.log(data.data);
     } catch (error) {
@@ -87,7 +82,7 @@ export default function ComSimpson({}: Result) {
               multiline
               variant="standard"
               sx={{ m: 1, width: "50ch" }}
-              value={functionInput ?? ""}
+              value={functionInput}
               onChange={(e) => setFunctionInput(e.target.value)}
             />
             <TextField
@@ -142,42 +137,4 @@ export default function ComSimpson({}: Result) {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -22,7 +22,7 @@ type Result = {
   };
 };
 
-export default function Trapezoidal({}: Result) {
+export default function Trapezoidal() {
   const [functionInput, setFunctionInput] = useState("");
   const [xEnd, setXEnd] = useState<number>();
   const [xStart, setXStart] = useState<number>();
