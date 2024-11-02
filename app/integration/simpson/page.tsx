@@ -17,7 +17,7 @@ type Result = {
   };
 };
 
-export default function Simpson({}: Result) {
+export default function Simpson() {
   const [functionInput, setFunctionInput] = useState("");
   const [xEnd, setXEnd] = useState<number>();
   const [xStart, setXStart] = useState<number>();

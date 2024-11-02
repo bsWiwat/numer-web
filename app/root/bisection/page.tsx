@@ -15,7 +15,9 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import "./BisectionMethod.css";
-import Plot from "react-plotly.js";
+import dynamic from "next/dynamic";
+
+const Plot = dynamic(() => import("react-plotly.js"), { ssr: false });
 
 type Iteration = {
   index: number;
@@ -63,7 +65,7 @@ const columns: readonly Column[] = [
   },
 ];
 
-export default function Bisection({}: RootResult) {
+export default function Bisection() {
   const [functionInput, setFunctionInput] = useState("");
   const [lowerBound, setLowerBound] = useState<number>();
   const [upperBound, setUpperBound] = useState<number>();
@@ -85,7 +87,7 @@ export default function Bisection({}: RootResult) {
 
     try {
       const response = await fetch(
-        "http://localhost:5006/api/rootofequation/bisection",
+        "http://localhost:5006/api/RootOfEquation/bisection",
         {
           method: "POST",
           headers: {
@@ -267,18 +269,6 @@ export default function Bisection({}: RootResult) {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

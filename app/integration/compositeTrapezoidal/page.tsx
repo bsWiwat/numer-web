@@ -22,7 +22,7 @@ type Result = {
   };
 };
 
-export default function ComTrapezoidal({}: Result) {
+export default function ComTrapezoidal() {
   const [functionInput, setFunctionInput] = useState("");
   const [xEnd, setXEnd] = useState<number>();
   const [xStart, setXStart] = useState<number>();
