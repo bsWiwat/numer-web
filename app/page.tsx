@@ -1,95 +1,154 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+
+import React, { useState } from "react";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [searchTerm, setSearchTerm] = useState("");
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Searching for:", searchTerm);
+  };
+
+  return (
+    <div>
+      {/* Hero Section */}
+      <Box
+        sx={{
+          mb: 5,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "40vh",
+          bgcolor: "",
+          p: 4,
+          boxShadow: 0.9,
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{ fontWeight: "500", color: "#245478", mb: 2 }}
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          Numerical Solver
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={handleSearchSubmit}
+          sx={{
+            width: "100%",
+            maxWidth: 500,
+          }}
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <TextField
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search..."
+            variant="outlined"
+            fullWidth
+            size="small"
+            sx={{
+              bgcolor: "white",
+              borderRadius: 1,
+              boxShadow: 1,
+            }}
           />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </Box>
+      </Box>
+
+      <Box sx={{ p: 2 }}>
+        <Grid container spacing={3} justifyContent="center">
+          {[
+            {
+              title: "Root",
+              links: [
+                "Graphical",
+                "Bisection",
+                "False Position",
+                "One-Point",
+                "Newton-Raphson",
+                "Secant",
+              ],
+            },
+            {
+              title: "Linear",
+              links: [
+                "Cramer",
+                "Gaussian",
+                "Gauss-Jordan",
+                "Matrix Inverse",
+                "LU Decompose",
+                "Cholesky Decompose",
+                "Jacobi",
+                "Gauss-Seidel",
+                "Conjugate",
+              ],
+            },
+            { title: "Interpolation", links: ["Newton", "Lagrange", "Spline"] },
+            {
+              title: "Extrapolation",
+              links: ["Simple Regression", "Multiple Regression"],
+            },
+            {
+              title: "Integration",
+              links: [
+                "Trapezoidal",
+                "Composite Trapezoidal",
+                "Simpson",
+                "Composite Simpson",
+              ],
+            },
+            { title: "Difference", links: ["Numer Difference"] },
+          ].map((section, index) => (
+            <Grid item key={index}>
+              <Box sx={{ maxWidth: 200 }}>
+                <Typography
+                  variant="h6"
+                  fontWeight="bold"
+                  color="#245478"
+                  mb={1}
+                >
+                  {section.title}
+                </Typography>
+                {section.links.map((link, idx) => (
+                  <Button
+                    key={idx}
+                    variant="outlined"
+                    fullWidth
+                    sx={{
+                      m: 0.5,
+                      justifyContent: "left",
+                      borderColor: "#245478",
+                      color: "#245478",
+                      borderRadius: 2,
+                      "&:hover": {
+                        bgcolor: "#245478",
+                        color: "white",
+                      },
+                    }}
+                    href={`./${section.title.toLowerCase()}/${link.replace(/\s+/g, "").toLowerCase()}`}
+                  >
+                    {link}
+                  </Button>
+                ))}
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </div>
   );
 }
+
+
+
+
+
+
+
+
