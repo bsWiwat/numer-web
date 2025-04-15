@@ -21,7 +21,7 @@ type Result = {
   };
 };
 
-export default function LagrangeExtrapolation() {
+export default function LagrangeExtrapolation({}: Result) {
   const [mOrder, setMOrder] = useState<number | null>(null);
   const [points, setPoints] = useState<PointXY[]>([
     { x: null, y: null },
